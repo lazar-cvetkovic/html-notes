@@ -62,18 +62,21 @@ create policy "notes_obj_delete" on storage.objects
          and auth.jwt() ->> 'email' = 'laki.cvetkovic@gmail.com');
 ```
 
-## 4. Configure Auth
+## 4. Configure Auth (email + password)
 
-1. **Authentication → Providers → Email**: make sure **Email** is enabled
-   (magic link / OTP is on by default).
+Login uses **email + password** (reliable for a single admin — no email round-trip).
+
+1. **Authentication → Providers → Email**: make sure **Email** is enabled.
 2. **Authentication → Sign In / Providers** (or **Settings**): turn **off "Allow new users to sign up"**.
    This way only the account you create can ever log in — extra protection on top of the
    email-based policies above.
-3. **Authentication → Users → Add user** → add yourself (`laki.cvetkovic@gmail.com`).
-   Use "Send invite" / "magic link", or set a password — either is fine since we sign in by magic link.
-4. **Authentication → URL Configuration → Redirect URLs**: add both
-   - `http://localhost:8000` (for local testing — match the port you serve on)
-   - your GitHub Pages URL, e.g. `https://<your-user>.github.io/html-notes/`
+3. **Authentication → Users → Add user → Create new user**:
+   - Email: `laki.cvetkovic@gmail.com`
+   - Password: choose a strong one (you'll type this to log in)
+   - **Check "Auto Confirm User"** so the account is immediately usable.
+
+   > "Add user" uses the admin API, so it works even with self-sign-ups disabled.
+   > Just adding an email elsewhere does **not** create a login account.
 
 ## 5. Fill in `config.js`
 
