@@ -229,7 +229,10 @@ async function onLogin(e) {
 
   const { error } = await db.auth.signInWithOtp({
     email,
-    options: { emailRedirectTo: window.location.href },
+    // Owner account already exists and project sign-ups are disabled, so we
+    // must NOT request user creation — otherwise Supabase rejects the magic
+    // link with "Signups not allowed for this instance".
+    options: { emailRedirectTo: window.location.href, shouldCreateUser: false },
   });
   msg.hidden = false;
   if (error) {
