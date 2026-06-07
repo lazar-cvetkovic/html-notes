@@ -155,12 +155,17 @@ function updateAuthUI() {
     authArea.append(email, out);
     uploadBtn.hidden = false;
   } else {
-    const login = document.createElement("button");
-    login.className = "btn";
-    login.textContent = "Owner login";
-    login.addEventListener("click", () => openModal("#login-modal"));
-    authArea.appendChild(login);
     uploadBtn.hidden = true;
+    // Reading is fully public — regular visitors see NO login UI at all.
+    // The admin login is only exposed when the URL ends in "#admin", so email
+    // sign-in is reserved for adding/removing notes.
+    if (window.location.hash === "#admin") {
+      const login = document.createElement("button");
+      login.className = "btn";
+      login.textContent = "Owner login";
+      login.addEventListener("click", () => openModal("#login-modal"));
+      authArea.appendChild(login);
+    }
   }
 }
 
@@ -274,6 +279,9 @@ function wireEvents() {
 
   $("#login-cancel").addEventListener("click", () => closeModal("#login-modal"));
   $("#login-form").addEventListener("submit", onLogin);
+
+  // Reveal/hide the admin login when "#admin" is added/removed from the URL.
+  window.addEventListener("hashchange", updateAuthUI);
 
   // click outside the card closes a modal
   document.querySelectorAll(".modal").forEach((m) =>
