@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTML Notes</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-row">
+    <div>
+      <h1>HTML Notes</h1>
+      <p class="subtitle">A centralized library of my study notes.</p>
+    </div>
+    <div id="auth-area" class="auth-area">
+      <!-- filled by app.js -->
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="toolbar">
+    <input id="search" class="search" type="search" placeholder="Search notes…" autocomplete="off">
+    <button id="upload-btn" class="btn btn-accent owner-only" hidden>+ Upload note</button>
+  </div>
+
+  <div id="tag-bar" class="tag-bar"><!-- tag chips injected here --></div>
+
+  <div id="status" class="status" hidden></div>
+
+  <section id="grid" class="grid"><!-- cards injected here --></section>
+
+  <div id="empty" class="empty" hidden>
+    <p>No notes yet.</p>
+  </div>
+
+</main>
+
+<!-- Upload modal -->
+<div id="upload-modal" class="modal" hidden>
+  <div class="modal-card">
+    <h2>Upload a note</h2>
+    <form id="upload-form">
+      <label>HTML file
+        <input id="f-file" type="file" accept=".html,text/html" required>
+      </label>
+      <label>Title
+        <input id="f-title" type="text" placeholder="e.g. Kafka vs Pub/Sub vs RabbitMQ" required>
+      </label>
+      <label>Description <span class="muted">(optional)</span>
+        <input id="f-desc" type="text" placeholder="Short summary shown on the card">
+      </label>
+      <label>Tags <span class="muted">(comma-separated)</span>
+        <input id="f-tags" type="text" placeholder="Backend, Messaging">
+      </label>
+      <div id="upload-error" class="form-error" hidden></div>
+      <div class="modal-actions">
+        <button type="button" id="upload-cancel" class="btn">Cancel</button>
+        <button type="submit" id="upload-submit" class="btn btn-accent">Upload</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Login modal -->
+<div id="login-modal" class="modal" hidden>
+  <div class="modal-card">
+    <h2>Owner login</h2>
+    <p class="muted">Enter your email to receive a magic sign-in link.</p>
+    <form id="login-form">
+      <label>Email
+        <input id="login-email" type="email" placeholder="you@example.com" required>
+      </label>
+      <div id="login-msg" class="form-msg" hidden></div>
+      <div class="modal-actions">
+        <button type="button" id="login-cancel" class="btn">Cancel</button>
+        <button type="submit" class="btn btn-accent">Send link</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
