@@ -229,23 +229,23 @@ async function onDelete(id) {
 async function onLogin(e) {
   e.preventDefault();
   const email = $("#login-email").value.trim();
+  const password = $("#login-password").value;
   const msg = $("#login-msg");
-  if (!email) return;
+  if (!email || !password) return;
 
-  const { error } = await db.auth.signInWithOtp({
-    email,
-    // Owner account already exists and project sign-ups are disabled, so we
-    // must NOT request user creation — otherwise Supabase rejects the magic
-    // link with "Signups not allowed for this instance".
-    options: { emailRedirectTo: window.location.href, shouldCreateUser: false },
-  });
+  // Email + password sign-in. The owner account must exist in Supabase
+  // (created via Dashboard → Authentication → Users → Add user with a
+  // password). Works even with self-sign-ups disabled.
+  const { error } = await db.auth.signInWithPassword({ email, password });
   msg.hidden = false;
   if (error) {
     msg.className = "form-error";
     msg.textContent = error.message;
   } else {
     msg.className = "form-msg";
-    msg.textContent = "Check your inbox for a sign-in link.";
+    msg.textContent = "Logged in.";
+    closeModal("#login-modal");
+    $("#login-form").reset();
   }
 }
 

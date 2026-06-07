@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HTML Notes</title>
-<link rel="stylesheet" href="styles.css?v=2">
+<link rel="stylesheet" href="styles.css?v=3">
 </head>
 <body>
 
@@ -69,15 +69,18 @@
 <div id="login-modal" class="modal" hidden>
   <div class="modal-card">
     <h2>Owner login</h2>
-    <p class="muted">Enter your email to receive a magic sign-in link.</p>
+    <p class="muted">Sign in to add or remove notes.</p>
     <form id="login-form">
       <label>Email
-        <input id="login-email" type="email" placeholder="you@example.com" required>
+        <input id="login-email" type="email" placeholder="you@example.com" autocomplete="username" required>
+      </label>
+      <label>Password
+        <input id="login-password" type="password" placeholder="••••••••" autocomplete="current-password" required>
       </label>
       <div id="login-msg" class="form-msg" hidden></div>
       <div class="modal-actions">
         <button type="button" id="login-cancel" class="btn">Cancel</button>
-        <button type="submit" class="btn btn-accent">Send link</button>
+        <button type="submit" class="btn btn-accent">Log in</button>
       </div>
     </form>
   </div>
@@ -85,6 +88,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
-<script src="app.js?v=2"></script>
+<script src="app.js?v=3"></script>
 </body>
 </html>
