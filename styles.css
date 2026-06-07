@@ -118,6 +118,9 @@ header.hero{
   position:fixed;inset:0;background:rgba(0,0,0,.6);
   display:flex;align-items:center;justify-content:center;padding:20px;z-index:50;
 }
+/* The "hidden" attribute must win over .modal's display:flex, otherwise the
+   modals are always visible and Cancel/close can't dismiss them. */
+.modal[hidden]{display:none}
 .modal-card{
   background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);
   padding:28px;width:100%;max-width:440px;box-shadow:var(--shadow);
